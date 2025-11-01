@@ -93,6 +93,62 @@
             background: var(--accent);
         }
 
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-content {
+            text-align: center;
+        }
+
+        .initials {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .initials::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            animation: expand 1.5s ease-in-out infinite;
+        }
+
+        @keyframes expand {
+            0%, 100% { transform: scaleX(0); }
+            50% { transform: scaleX(1); }
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
         /* Header & Navigation */
         header {
             position: fixed;
@@ -163,7 +219,7 @@
             width: 100%;
         }
 
-        /* Theme Toggle */
+        /* Enhanced Theme Toggle */
         .theme-toggle {
             background: transparent;
             border: none;
@@ -178,17 +234,53 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .theme-toggle:hover {
             background: rgba(255, 123, 0, 0.1);
-            transform: rotate(15deg);
+        }
+
+        .theme-toggle i {
+            transition: transform 0.5s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(180deg);
         }
 
         .hamburger {
             display: none;
             cursor: pointer;
             z-index: 1001;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: var(--text);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
         }
 
         /* Mobile Navigation */
@@ -204,6 +296,7 @@
             transition: var(--transition);
             padding: 80px 30px 30px;
             box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
         }
 
         .mobile-nav.active {
@@ -224,6 +317,30 @@
             display: block;
             padding: 10px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-theme-toggle {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-theme-toggle button {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .mobile-theme-toggle i {
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
 
         .overlay {
@@ -299,6 +416,7 @@
             transition: var(--transition);
             aspect-ratio: 1/1;
             object-fit: cover;
+            loading: lazy;
         }
 
         .home-text h1 {
@@ -335,6 +453,23 @@
             border: 2px solid var(--accent);
             font-size: 0.9rem;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
@@ -404,6 +539,7 @@
             border-radius: 10px;
             aspect-ratio: 3/4;
             object-fit: cover;
+            loading: lazy;
         }
 
         .about-text {
@@ -924,7 +1060,7 @@
             box-shadow: 0 8px 20px rgba(255, 123, 0, 0.4);
         }
 
-        /* Custom Cursor */
+        /* Custom Cursor - Hidden on mobile */
         .cursor {
             position: fixed;
             width: 20px;
@@ -1124,10 +1260,68 @@
                 padding: 50px;
             }
         }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 767px) {
+            .cursor {
+                display: none;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+            
+            .mobile-nav-links a {
+                font-size: 1.1rem;
+            }
+            
+            .home-text h1 {
+                font-size: 2.2rem;
+            }
+            
+            .home-text .tagline {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="initials">AP</div>
+            <div class="loading-text">Loading Portfolio...</div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor - Hidden on mobile -->
     <div class="cursor"></div>
 
     <!-- Header -->
@@ -1148,9 +1342,11 @@
                         </button>
                     </li>
                 </ul>
-                <div class="hamburger">
-                    <i class="fas fa-bars"></i>
-                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </nav>
         </div>
     </header>
@@ -1164,9 +1360,9 @@
             <li><a href="#education">Education</a></li>
             <li><a href="#goals">Goals</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li>
-                <button class="theme-toggle" id="mobileThemeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-moon"></i> Toggle Theme
+            <li class="mobile-theme-toggle">
+                <button id="mobileThemeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i> Dark Mode
                 </button>
             </li>
         </ul>
@@ -1186,7 +1382,7 @@
             <div class="home-content">
                 <div class="home-image fade-in">
                     <!-- Your 1:1 profile picture -->
-                    <img src="Profile picture.png" alt="Aritra Parui">
+                    <img src="Profile picture.png" alt="Aritra Parui" loading="lazy">
                 </div>
                 <div class="home-text fade-in">
                     <h1>Hi, I'm <span>Aritra Parui</span></h1>
@@ -1213,7 +1409,7 @@
                 </div>
                 <div class="about-image fade-in">
                     <!-- Your 3:4 second picture -->
-                    <img src="2nd Image.png" alt="Aritra Parui">
+                    <img src="2nd Image.png" alt="Aritra Parui" loading="lazy">
                 </div>
             </div>
         </div>
@@ -1343,7 +1539,7 @@
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>aritraparui98@gmail.com</span>
+                            <span>aritraparui08@gmail.com</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
@@ -1410,6 +1606,17 @@
     </footer>
 
     <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            setTimeout(function() {
+                preloader.classList.add('fade-out');
+                setTimeout(function() {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
         // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
@@ -1502,26 +1709,31 @@
         window.addEventListener('scroll', fadeInOnScroll);
         window.addEventListener('load', fadeInOnScroll);
 
-        // Custom cursor
+        // Custom cursor - only for non-touch devices
         const cursor = document.querySelector('.cursor');
         
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        
-        // Add hover effect to interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .btn, .skill-tag, .social-link, .goal-card, .skill-category, .timeline-content');
-        
-        interactiveElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
             });
             
-            element.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
+            // Add hover effect to interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, .btn, .skill-tag, .social-link, .goal-card, .skill-category, .timeline-content');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
             });
-        });
+        } else {
+            // Hide cursor on touch devices
+            cursor.style.display = 'none';
+        }
 
         // Form submission with Web3Forms
         document.getElementById('contactForm').addEventListener('submit', function(e) {
@@ -1572,18 +1784,20 @@
         });
 
         // Mobile menu toggle
-        const hamburger = document.querySelector('.hamburger');
+        const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobileNav');
         const overlay = document.getElementById('overlay');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
         
         hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
             mobileNav.classList.toggle('active');
             overlay.classList.toggle('active');
             document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
         });
 
         overlay.addEventListener('click', () => {
+            hamburger.classList.remove('active');
             mobileNav.classList.remove('active');
             overlay.classList.remove('active');
             document.body.style.overflow = 'auto';
@@ -1591,6 +1805,7 @@
 
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
                 mobileNav.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -1600,7 +1815,8 @@
         // Close mobile menu when clicking on a link in desktop nav
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
+                if (window.innerWidth <= 767) {
+                    hamburger.classList.remove('active');
                     mobileNav.classList.remove('active');
                     overlay.classList.remove('active');
                     document.body.style.overflow = 'auto';
