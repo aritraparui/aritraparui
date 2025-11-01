@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aritra Parui | AI & Cybersecurity Enthusiast</title>
+    <meta name="description" content="Aritra Parui - Student | AI & Cybersecurity Enthusiast. Passionate about AI, Machine Learning, Cybersecurity, and Data Science.">
+    <meta name="keywords" content="Aritra Parui, AI, Cybersecurity, Data Science, Machine Learning, Portfolio, Web Developer">
+    <meta name="author" content="Aritra Parui">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Aritra Parui | AI & Cybersecurity Enthusiast">
+    <meta property="og:description" content="Student passionate about AI, Machine Learning, Cybersecurity, and Data Science.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aritraparui.github.io/portfolio/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230B3D3E'/><text x='50%' y='50%' font-size='48' text-anchor='middle' alignment-baseline='middle' font-family='Arial' fill='%23FF7B00'>AP</text></svg>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,6 +27,15 @@
             --text: #F5F5F5;
             --card-bg: #1A1A1A;
             --transition: all 0.3s ease;
+        }
+
+        /* Light Mode Variables */
+        .light-mode {
+            --primary: #0B3D3E;
+            --accent: #FF7B00;
+            --background: #F5F5F5;
+            --text: #1A1A1A;
+            --card-bg: #FFFFFF;
         }
 
         * {
@@ -32,6 +54,7 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         a {
@@ -82,6 +105,10 @@
             backdrop-filter: blur(10px);
         }
 
+        .light-mode header {
+            background-color: rgba(245, 245, 245, 0.95);
+        }
+
         header.scrolled {
             padding: 10px 0;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
@@ -107,6 +134,7 @@
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links li {
@@ -133,6 +161,28 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            margin-left: 25px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 123, 0, 0.1);
+            transform: rotate(15deg);
         }
 
         .hamburger {
@@ -413,6 +463,11 @@
             margin-right: 15px;
             color: var(--accent);
             font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .skill-category:hover .skill-icon {
+            transform: scale(1.1);
         }
 
         .skill-header h3 {
@@ -726,6 +781,11 @@
             font-size: 0.9rem;
         }
 
+        .light-mode .form-control {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
         .form-control:focus {
             outline: none;
             border-color: var(--accent);
@@ -830,6 +890,58 @@
             background: var(--accent);
             bottom: 10%;
             right: 10%;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: var(--background);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 123, 0, 0.4);
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(255, 123, 0, 0.5);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: rgba(11, 61, 62, 0.7);
         }
 
         /* Animation Classes */
@@ -1015,6 +1127,9 @@
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
     <!-- Header -->
     <header id="header">
         <div class="container">
@@ -1027,6 +1142,11 @@
                     <li><a href="#education">Education</a></li>
                     <li><a href="#goals">Goals</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
                 </ul>
                 <div class="hamburger">
                     <i class="fas fa-bars"></i>
@@ -1044,9 +1164,19 @@
             <li><a href="#education">Education</a></li>
             <li><a href="#goals">Goals</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li>
+                <button class="theme-toggle" id="mobileThemeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i> Toggle Theme
+                </button>
+            </li>
         </ul>
     </div>
     <div class="overlay" id="overlay"></div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
 
     <!-- Home Section -->
     <section id="home">
@@ -1213,7 +1343,7 @@
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>aritraparui08@gmail.com</span>
+                            <span>aritraparui98@gmail.com</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
@@ -1221,13 +1351,13 @@
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/aritraparui/" class="social-link">
+                        <a href="https://www.linkedin.com/in/aritraparui/" class="social-link" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <a href="#" class="social-link">
+                        <a href="https://github.com/aritraparui/" class="social-link" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="#" class="social-link">
+                        <a href="https://x.com/AritraParui_" class="social-link" aria-label="Twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </div>
@@ -1283,12 +1413,67 @@
         // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
+            
+            // Show/hide scroll to top button
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
         });
+
+        // Scroll to top functionality
+        document.getElementById('scrollToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            if (mobileThemeToggle) {
+                mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+            }
+        }
+        
+        function toggleTheme() {
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                if (mobileThemeToggle) {
+                    mobileThemeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                }
+            } else {
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                if (mobileThemeToggle) {
+                    mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                }
+            }
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+        if (mobileThemeToggle) {
+            mobileThemeToggle.addEventListener('click', toggleTheme);
+        }
 
         // Fade in animation on scroll
         const fadeElements = document.querySelectorAll('.fade-in');
@@ -1316,6 +1501,27 @@
 
         window.addEventListener('scroll', fadeInOnScroll);
         window.addEventListener('load', fadeInOnScroll);
+
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        // Add hover effect to interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .btn, .skill-tag, .social-link, .goal-card, .skill-category, .timeline-content');
+        
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
 
         // Form submission with Web3Forms
         document.getElementById('contactForm').addEventListener('submit', function(e) {
